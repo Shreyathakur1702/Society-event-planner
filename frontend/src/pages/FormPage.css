@@ -1,0 +1,67 @@
+.form-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--card-shadow);
+}
+
+.form-page h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: var(--text-color);
+}
+
+.form-page label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-page input,
+.form-page button {
+  width: 100%;
+  padding: 0.7rem;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.form-page input {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.form-page input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.form-page button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+.form-page button:hover {
+  background-color: #3a78c2;
+}
+
+.success {
+  color: green;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem;
+}

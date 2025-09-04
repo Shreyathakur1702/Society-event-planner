@@ -1,0 +1,74 @@
+.form-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--card-shadow);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-page h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: var(--text-color);
+}
+
+.form-page label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-page input,
+.form-page select,
+.form-page textarea {
+  width: 100%;
+  padding: 0.7rem;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.form-page input:focus,
+.form-page select:focus,
+.form-page textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.form-page button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-page button:hover {
+  background-color: #3a78c2;
+}
+
+.success {
+  color: green;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem;
+}
