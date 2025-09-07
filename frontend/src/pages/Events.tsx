@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import api from "../api/api"; // ✅ use api instance
+import api from "../api/api"; 
 import "./Events.css";
 
 type EventItem = {
@@ -9,7 +9,7 @@ type EventItem = {
   _id?: string;
   name: string;
   society: string;
-  date: string; // "YYYY-MM-DD" or ISO string
+  date: string; 
 };
 
 export default function Events() {
@@ -31,7 +31,7 @@ export default function Events() {
   const handleDelete = async (id: string) => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
     try {
-      await api.delete(`/api/events/${id}`); // ✅ replaced raw axios + localhost
+      await api.delete(`/api/events/${id}`); 
       toast.success("Event deleted successfully!");
       fetchEvents();
     } catch (err) {
@@ -40,12 +40,12 @@ export default function Events() {
     }
   };
 
-  // Parse "YYYY-MM-DD" safely as LOCAL date (prevents timezone shift)
+  
   const parseYMD = (val: string) => {
     if (!val) return new Date(0);
-    const ymd = val.split("T")[0]; // handles ISO too
+    const ymd = val.split("T")[0];
     const [y, m, d] = ymd.split("-").map(Number);
-    return new Date(y, (m || 1) - 1, d || 1); // local midnight
+    return new Date(y, (m || 1) - 1, d || 1); 
   };
 
   const startOfToday = new Date();

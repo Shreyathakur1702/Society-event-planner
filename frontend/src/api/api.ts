@@ -5,10 +5,10 @@ export const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8
 
 const api = axios.create({
   baseURL: API_BASE,
-  withCredentials: true, // include cookies (refreshToken)
+  withCredentials: true, 
 });
 
-// Request interceptor → attach access token
+
 api.interceptors.request.use(
   (config) => {
     const token = TokenService.getLocalAccessToken();

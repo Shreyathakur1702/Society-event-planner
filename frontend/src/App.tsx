@@ -68,7 +68,7 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <AuthProvider>   {/* 👈 wrap the whole app with AuthProvider */}
+    <AuthProvider>   
       <AppNavbar />
       <main>
         <AnimatedRoutes />

@@ -13,7 +13,6 @@ export default function Login() {
     try {
       await login(email, password);
       toast.success("Logged in");
-      // Redirect handled inside AuthContext.login()
     } catch (err: any) {
       toast.error(err?.response?.data?.error || "Login failed");
     }

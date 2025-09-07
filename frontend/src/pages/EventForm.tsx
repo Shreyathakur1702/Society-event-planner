@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import api from "../api/api"; // ✅ use api instance
+import api from "../api/api"; 
 import "./FormPage.css";
 
 type EventItem = {
@@ -23,7 +23,7 @@ export default function EventForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Fetch existing event when editing
+  
   useEffect(() => {
     if (id) {
       api
@@ -52,7 +52,6 @@ export default function EventForm() {
     }
   };
 
-  // Render the form
   return (
     <div className="form-page">
       <h2>{id ? "Edit Event" : "Create New Event"}</h2>
