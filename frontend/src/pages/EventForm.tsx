@@ -21,7 +21,7 @@ export default function EventForm() {
     date: ""
   });
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [success] = useState("");
 
   
   useEffect(() => {
