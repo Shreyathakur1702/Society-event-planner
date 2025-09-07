@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import "./Events.css";
 import { toast } from "react-toastify";
+import api from "../api/api"; // ✅ use api instance
+import "./Events.css";
 
 type EventItem = {
   id?: string;
@@ -20,27 +20,25 @@ export default function Events() {
   }, []);
 
   const fetchEvents = () => {
-    axios
-      .get("http://localhost:8080/api/events")
+    api
+      .get("/api/events")
       .then((res) => setEvents(res.data))
       .catch((err) => console.error(err));
   };
 
   const getId = (e: EventItem) => e.id ?? e._id ?? "";
 
-  
-
-const handleDelete = async (id: string) => {
-  if (!window.confirm("Are you sure you want to delete this event?")) return;
-  try {
-    await axios.delete(`http://localhost:8080/api/events/${id}`);
-    toast.success("Event deleted successfully!");
-    fetchEvents();
-  } catch (err) {
-    toast.error("Failed to delete event");
-  }
-};
-
+  const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this event?")) return;
+    try {
+      await api.delete(`/api/events/${id}`); // ✅ replaced raw axios + localhost
+      toast.success("Event deleted successfully!");
+      fetchEvents();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete event");
+    }
+  };
 
   // Parse "YYYY-MM-DD" safely as LOCAL date (prevents timezone shift)
   const parseYMD = (val: string) => {
@@ -90,7 +88,6 @@ const handleDelete = async (id: string) => {
 
   return (
     <div className="events-page">
-      
       <h2>Upcoming Events</h2>
       <div className="events-grid">
         {upcomingEvents.length ? (
@@ -100,7 +97,7 @@ const handleDelete = async (id: string) => {
         )}
 
         <Link to="/create-event" className="fab-btn">
-        +
+          +
         </Link>
       </div>
 

@@ -1,11 +1,11 @@
-
 import { Link } from "react-router-dom";
 import "./Home.css";
 
 export default function Home() {
   return (
+    <div className="home-page">
     <div className="home-container">
-      <h1>Welcome to Society Event Planner !</h1>
+      <h1>Welcome to EventHive!</h1>
       <p>
         Organize and keep track of all your society events in one place.  
         View upcoming and past events, create new ones, and keep everything managed easily.  
@@ -13,13 +13,10 @@ export default function Home() {
       </p>
 
       <div className="home-actions">
-        <Link to="/events" className="home-btn primary-btn">
-           View Events
-        </Link>
-        <Link to="/create-event" className="home-btn primary-btn">
-           Create Event
-        </Link>
+        <Link to="/login" className="home-btn primary-btn">Login</Link>
+        <Link to="/register" className="home-btn primary-btn">Register</Link>
       </div>
+    </div>
     </div>
   );
 }

@@ -7,6 +7,10 @@ import Home from "./pages/Home";
 import Events from "./pages/Events";
 import AppNavbar from "./components/Navbar";
 import EventForm from "./pages/EventForm";
+import Login from "./pages/Login";       
+import Register from "./pages/Register"; 
+import ProtectedRoute from "./components/ProtectedRoute"; 
+import { AuthProvider } from "./context/AuthContext";     
 
 function PageWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -27,10 +31,36 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        {/* Public Routes */}
         <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-        <Route path="/events" element={<PageWrapper><Events /></PageWrapper>} />
-        <Route path="/create-event" element={<PageWrapper><EventForm /></PageWrapper>} />
-        <Route path="/edit-event/:id" element={<PageWrapper><EventForm /></PageWrapper>} />
+        <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
+        <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/events"
+          element={
+            <ProtectedRoute>
+              <PageWrapper><Events /></PageWrapper>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create-event"
+          element={
+            <ProtectedRoute>
+              <PageWrapper><EventForm /></PageWrapper>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-event/:id"
+          element={
+            <ProtectedRoute>
+              <PageWrapper><EventForm /></PageWrapper>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
@@ -38,13 +68,13 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <>
+    <AuthProvider>   {/* 👈 wrap the whole app with AuthProvider */}
       <AppNavbar />
       <main>
         <AnimatedRoutes />
         <ToastContainer position="top-right" autoClose={2000} />
       </main>
-    </>
+    </AuthProvider>
   );
 }
 

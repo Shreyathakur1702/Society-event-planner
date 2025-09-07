@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { toast } from "react-toastify";
+import api from "../api/api"; // ✅ use api instance
 import "./FormPage.css";
- import { toast } from "react-toastify";
 
 type EventItem = {
   id?: string;
@@ -26,8 +26,8 @@ export default function EventForm() {
   // Fetch existing event when editing
   useEffect(() => {
     if (id) {
-      axios
-        .get(`http://localhost:8080/api/events/${id}`)
+      api
+        .get(`/api/events/${id}`)
         .then((res) => {
           const formattedDate = res.data.date?.split("T")[0] || "";
           setEvent({ ...res.data, date: formattedDate });
@@ -36,23 +36,21 @@ export default function EventForm() {
     }
   }, [id]);
 
-
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  try {
-    if (id) {
-      await axios.put(`http://localhost:8080/api/events/${id}`, event);
-      toast.success("Event updated successfully!");
-    } else {
-      await axios.post("http://localhost:8080/api/events", event);
-      toast.success("Event created successfully!");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      if (id) {
+        await api.put(`/api/events/${id}`, event);
+        toast.success("Event updated successfully!");
+      } else {
+        await api.post("/api/events", event);
+        toast.success("Event created successfully!");
+      }
+      setTimeout(() => navigate("/events"), 1500);
+    } catch {
+      toast.error(id ? "Failed to update event" : "Failed to create event");
     }
-    setTimeout(() => navigate("/events"), 1500);
-  } catch {
-    toast.error(id ? "Failed to update event" : "Failed to create event");
-  }
-};
-
+  };
 
   // Render the form
   return (
@@ -97,6 +95,6 @@ const handleSubmit = async (e: React.FormEvent) => {
 
         <button type="submit">{id ? "Update Event" : "Create Event"}</button>
       </form>
-    </div>
+      </div>
   );
 }
