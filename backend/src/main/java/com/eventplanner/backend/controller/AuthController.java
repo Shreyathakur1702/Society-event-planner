@@ -1,7 +1,7 @@
 package com.eventplanner.backend.controller;
 
-import com.eventplanner.backend.model.RefreshToken;
 import com.eventplanner.backend.model.User;
+import com.eventplanner.backend.model.RefreshToken;
 import com.eventplanner.backend.repository.UserRepository;
 import com.eventplanner.backend.service.RefreshTokenService;
 import com.eventplanner.backend.util.JwtUtil;
@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "https://event-hive-society-event-planner.vercel.app/", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class AuthController {
 
     private final AuthenticationManager authManager;
@@ -30,6 +30,9 @@ public class AuthController {
     private final RefreshTokenService refreshSvc;
 
     private static final String REFRESH_COOKIE = "refreshToken";
+
+    private static final String PASSWORD_PATTERN =
+            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
     public AuthController(AuthenticationManager authManager,
                           UserRepository userRepo,
@@ -46,17 +49,27 @@ public class AuthController {
     /* -------------------- REGISTER -------------------- */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
+
+        if (!user.getPassword().matches(PASSWORD_PATTERN)) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "error", "Password must be at least 8 characters long, and include "
+                            + "1 uppercase, 1 lowercase, 1 digit, and 1 special character."
+            ));
+        }
+
         if (userRepo.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body(Map.of("error", "Email already exists"));
         }
+
         user.setPassword(encoder.encode(user.getPassword()));
         user.setRole("USER");
         User saved = userRepo.save(user);
-        saved.setPassword(null); // don’t expose hash
+        saved.setPassword(null);
         return ResponseEntity.ok(saved);
     }
 
-    /* -------------------- LOGIN -------------------- */
+
+/* -------------------- LOGIN -------------------- */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credentials,
                                    HttpServletResponse response) {

@@ -16,5 +16,7 @@ public class Event {
     private String id;
     private String name;
     private String society;
-    private String date; // you can use LocalDateTime later if you want
+    private String date;
+
+    private String userId;
 }
